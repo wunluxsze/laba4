@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% if not user.is_authenticated %}
+    <a href="reg/" class="a">Зарегестрироваться</a>
+    {% endif %}
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Выйти из аккаунта</a>
+        {% endif %}
+    <h2 class="title">Список фильмов</h2>
+    {% if user.is_authenticated %}
+    <a href = "add/">Добавление фильма</a>
+    {% endif %}
+    <div class="l">
+        {% for film in films %}
+                <div class="table">
+                         <p>Название:</p> <p>{{ film.title }}</p>
+                          <p>Дата выпуска:</p> <p>{{ film.date }}</p>
+                         <p>Актеры:</p> <p>{{ film.actors }}</p>
+                        <p>Дата показа:</p> <p>{{ film.dateView }}</p>
+                         <p>Категория:</p> <p>{{ film.genre }}</p>
+                            {% if user.is_authenticated %}
+                            <a class="a button" href="edit/{{ film.id }}">Изменить</a>
+                            <a class="a button" href="delete/{{ film.id }}">Удалить</a>
+
+                            {% endif %}
+                </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

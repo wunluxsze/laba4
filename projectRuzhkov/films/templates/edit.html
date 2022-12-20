@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <h2>Изменение фильмов</h2>
+    <form method = "post">
+        {% csrf_token %}
+        <p>
+            <label for="">Введите название фильма</label><br>
+            <input type="text" name = "title" value="{{ films.title }}"/>
+        </p>
+        <p>
+            <label for="">Введите дату (Она должна быть в формате YYYY-MM-DD.)</label><br>
+            <input type="date" name = "date" value="{{ films.date }}"/>
+        </p>
+        <p>
+            <label for="">Введите актеров</label><br>
+            <input type="text" name = "actors" value="{{ films.actors }}"/>
+        </p>
+        <p>
+            <label for="">Введите дату показа</label><br>
+            <input type="date" name = "dateView" value="{{ films.dateView }}"/>
+        </p>
+        <p>
+            <label for="">Введите категорию</label><br>
+            <select name="category">
+            {% for cat in categori %}
+                <option value = "{{ cat.id }}">{{ cat.title }}</option>
+            {% endfor %}
+            </select>
+        </p>
+        <input type="submit" value="Сохранить">
+    </form>
+{% endif %}
+</body>
+</html>
